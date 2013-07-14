@@ -1,0 +1,32 @@
+Whirlwind OS
+Nick Hynes
+
+Requirements for build:
+	nasm
+	ld
+
+Requirements for use:
+	bochs
+	or a floppy containing "storm"
+
+
+To run, enter the /build directory and run bochs. There is already a .bochsrc configured to run the program.
+To run (the hard way), dd/write "storm" to a floppy disk and boot into it.
+
+When run, you'll see a table of memory addresses and types. Below that is a similar table with contiguously typed memory blocks combined and unusable types marked as such.
+
+Keyboard input is possible, but no key modifiers are usable.
+
+If you were to examine the eax register upon completion, you would find the beginning of an eight byte allocation (provided by malloc() [and sbrk()]).
+
+
+Method of operation:
+	The gale bootloader uses the BIOS to read the rest of the OS off of the [virtual] floppy disk into memory. The bootloader then sets up a flat GDT (global descriptor table), enables the 21st memory line, and jumps to the OS proper.
+
+	Once the OS is loaded, the system memory is mapped, paging is enabled, and interrupts are enabled.
+
+	It does this in very few cycles since it's written in assembly. Unfortunately, the code is not very readable for the same reason.
+
+	malloc() and sbrk() are documented fairly well, so if you're interested, I would recommend looking through them.
+
+I wrote this over the summer a few years back (2010) because I didn't like the closed nature of the then-dominant iPhone. I had also wanted to implement a few other interesting features like internet mesh via bluetooth and something similar to Google Glass. Of course, writing an OS (in assembly, for that matter) is probably not the best way to move quickly.
