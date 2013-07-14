@@ -7,6 +7,7 @@ Features:
   bootloader (gale),
   kernel (storm) -
     protected mode (32/64 bit),
+    text-mode graphics,
     paging+virtual memory,
     interrupts,
     memory manager -
